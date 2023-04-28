@@ -20,3 +20,8 @@ How to Run the Game
     Open the index.html file in your web browser.
     Start playing the game by guessing letters to fill in the blanks.
     Click the "Reset" button to start a new game.
+
+    https://sam-degrand.github.io/Word-Guessing-Game/
+
+    ![Alt Text](Images\Guessing Game.png)
+
