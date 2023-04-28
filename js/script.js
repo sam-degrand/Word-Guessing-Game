@@ -10,19 +10,22 @@ const inputs = document.querySelector(".inputs"),
 let word, maxGuesses, incorrectLetters = [], correctLetters = [], seconds = 0, numWins = 0, numLosses = 0;
 
 function randomWord() {
+  // Get a random word from the wordList array
   let ranItem = wordList[Math.floor(Math.random() * wordList.length)];
+   // Set the word and hint based on the randomly selected item
   word = ranItem.word;
   correctLetters = [];
   incorrectLetters = [];
   hintTag.innerText = ranItem.hint;
   wrongLetter.innerText = incorrectLetters;
+  // Build the input fields for each letter in the word
   let html = "";
   for (let i = 0; i < word.length; i++) {
     html += `<input type="text" disabled>`;
     inputs.innerHTML = html;
   }
 }
-
+// Start the game by selecting a random word and setting up the input fields
 randomWord();
 
 function initGame(e) {
@@ -33,6 +36,7 @@ function initGame(e) {
     !correctLetters.includes(key)
   ) {
     if (word.includes(key)) {
+      // If the key is in the word, update the input fields with the new letter
       for (let i = 0; i < word.length; i++) {
         if (word[i] == key) {
           correctLetters += key;
@@ -40,6 +44,7 @@ function initGame(e) {
         }
       }
     } else {
+      // If the key is not in the word, add it to the incorrect letters array
       incorrectLetters.push(` ${key}`);
     }
 
@@ -49,6 +54,7 @@ function initGame(e) {
 
   setTimeout(() => {
     if (correctLetters.length === word.length) {
+      // If all the letters have been guessed correctly, show a message and select a new word
       alert(`Congrats! You found the word ${word.toUpperCase()}`);
       numWins++;
       wins.innerText = numWins;
@@ -69,11 +75,13 @@ function startTimer() {
     seconds--;
     timer.innerText = seconds;
     if (seconds === 0) {
+      // If the timer runs out, show a message and select a new word
       clearInterval(intervalId);
       initGame({ target: { value: "" } });
     }
   }, 1000);
 }
+// Start the timer
 startTimer();
 
 function resetGame() {
@@ -85,7 +93,7 @@ function resetGame() {
   wrongLetter.innerText = "";
   typingInput.value = "";
 }
-
+// Attach event listeners to reset the game when the reset button is clicked or a new letter is typed
 resetBtn.addEventListener("click", resetGame);
 typingInput.addEventListener("input", initGame);
 inputs.addEventListener("click", () => typingInput.focus());
